@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment secrets - NEVER upload these
+.env
+*/.env
+
+# Build outputs
+frontend/dist/
+contracts/artifacts/
+contracts/cache/
+
+# Misc
+.DS_Store
+*.log
