@@ -6,19 +6,12 @@ const mongoose = require('mongoose')
 const app = express()
 
 // ── CORS ────────────────────────────────────────────
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:3000',
-  process.env.CLIENT_URL,           // set this in Render env vars to your Vercel URL
-].filter(Boolean)
-
 app.use(cors({
-  origin: (origin, callback) => {
-    // allow requests with no origin (mobile apps, Postman, curl)
-    if (!origin) return callback(null, true)
-    if (allowedOrigins.includes(origin)) return callback(null, true)
-    callback(new Error(`CORS blocked: ${origin}`))
-  },
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://eventlink-omega.vercel.app',
+  ],
   credentials: true,
 }))
 
@@ -27,7 +20,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // ── Health Check ────────────────────────────────────
-// Render pings this to check if the server is alive
 app.get('/', (req, res) => {
   res.json({
     status:  'ok',
